@@ -44,8 +44,9 @@ open class AMDatabase {
     }
     
     open func perform(block: @escaping (NSManagedObjectContext) -> ()) {
+        let context = self.createPrivateContext()
+        
         let run = {
-            let context = self.createPrivateContext()
             context.performAndWait {
                 block(context)
             }
@@ -78,6 +79,7 @@ open class AMDatabase {
                     try context.save()
                 } catch {
                     os_log("%@", error.localizedDescription)
+                    os_log("%@", (error as NSError).userInfo)
                     return
                 }
                 if context.parent == innerWriterContext && context.parent?.hasChanges == true {
@@ -86,6 +88,7 @@ open class AMDatabase {
                             try context.parent?.save()
                         } catch {
                             os_log("%@", error.localizedDescription)
+                            os_log("%@", (error as NSError).userInfo)
                             return
                         }
                     }
@@ -109,7 +112,7 @@ fileprivate extension AMDatabase {
     
     fileprivate func createPrivateContext() -> NSManagedObjectContext {
         let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        context.parent = innerWriterContext
+        context.parent = writerContext()
         return context
     }
     
@@ -121,16 +124,8 @@ fileprivate extension AMDatabase {
         return storeDescriptions.filter { $0.configuration == configuration }.first!
     }
     
-    private func dispatchSyncOnMainThread(block: ()->()) {
-        if Thread.isMainThread {
-            block()
-        } else {
-            DispatchQueue.main.sync(execute: block)
-        }
-    }
-    
     fileprivate func setupPersistentStore() {
-        dispatchSyncOnMainThread {
+        serialQueue.sync {
             var bundles = [Bundle.main]
             
             if let bundle = customModelBundle {
@@ -174,9 +169,9 @@ fileprivate extension AMDatabase {
         do {
             try coordinator.addPersistentStore(ofType: description.storeType, configurationName: configuration, at: description.url, options: options)
             
-            os_log("Store has been added: @", description.url.path)
+            os_log("Store has been added: %@", description.url.path)
         } catch {
-            os_log("Error while creating persistent store: @ for configuration @", error.localizedDescription, configuration)
+            os_log("Error while creating persistent store: %@ for configuration %@", error.localizedDescription, configuration)
             
             if description.deleteOnError {
                 description.removeStoreFiles()

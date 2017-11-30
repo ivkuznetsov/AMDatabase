@@ -13,7 +13,7 @@ import os.log
 extension NSManagedObjectContext {
     
     private func logError(error: Error) {
-        os_log("error @", error.localizedDescription)
+        os_log("error %@", error.localizedDescription)
         
         // lof detailed
     }
@@ -86,8 +86,8 @@ extension NSManagedObjectContext {
         return []
     }
     
-    public func find<T: NSManagedObject>(type: T.Type, block: @escaping (T)->Bool) -> [T] {
-        let predicate = NSPredicate { (object, _) in return block(object as! T) }
+    public func find<T: NSManagedObject>(type: T.Type, _ format: String, _ args: CVarArg...) -> [T] {
+        let predicate = NSPredicate(format: format, args)
         return find(type: type, predicate: predicate)
     }
     
@@ -103,8 +103,8 @@ extension NSManagedObjectContext {
         return []
     }
     
-    public func findFirst<T: NSManagedObject>(type: T.Type, block: @escaping (T)->Bool) -> T? {
-        let predicate = NSPredicate { (object, _) in return block(object as! T) }
+    public func findFirst<T: NSManagedObject>(type: T.Type, _ format: String, _ args: CVarArg...) -> T? {
+        let predicate = NSPredicate(format: format, args)
         return findFirst(type: type, predicate: predicate)
     }
     
