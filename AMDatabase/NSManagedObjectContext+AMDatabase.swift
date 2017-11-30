@@ -58,6 +58,22 @@ extension NSManagedObjectContext {
         return allObjectsSortedBy(key: key, ascending: true, type: type)
     }
     
+    public func allObjectsSortedBy<T: NSManagedObject, U>(key: ReferenceWritableKeyPath<T, U?>, type: T.Type) -> [T] where U: Comparable {
+        return allObjectsSortedBy(key: key, ascending: true, type: type)
+    }
+    
+    public func allObjectsSortedBy<T: NSManagedObject, U>(key: ReferenceWritableKeyPath<T, U?>, ascending: Bool, type: T.Type) -> [T] where U: Comparable {
+        let request = NSFetchRequest<T>()
+        request.sortDescriptors = [NSSortDescriptor(keyPath: key, ascending: ascending)]
+        
+        do {
+            return try execute(request: request, type: type)
+        } catch {
+            logError(error: error)
+        }
+        return []
+    }
+    
     public func allObjectsSortedBy<T: NSManagedObject, U>(key: KeyPath<T, U>, ascending: Bool, type: T.Type) -> [T] where U: Comparable {
         let request = NSFetchRequest<T>()
         request.sortDescriptors = [NSSortDescriptor(keyPath: key, ascending: ascending)]
