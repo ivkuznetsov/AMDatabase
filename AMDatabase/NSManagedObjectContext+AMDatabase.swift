@@ -87,7 +87,7 @@ extension NSManagedObjectContext {
     }
     
     public func find<T: NSManagedObject>(type: T.Type, _ format: String, _ args: CVarArg...) -> [T] {
-        let predicate = NSPredicate(format: format, args)
+        let predicate = NSPredicate(format: format, arguments: getVaList(args))
         return find(type: type, predicate: predicate)
     }
     
@@ -103,8 +103,18 @@ extension NSManagedObjectContext {
         return []
     }
     
+    public func findFirst<T: NSManagedObject, U: CVarArg>(type: T.Type, _ keyPath: KeyPath<T, U>, _ value: U) -> T? {
+        let predicate = NSPredicate(format: "\(keyPath._kvcKeyPathString!) == %@", value)
+        return findFirst(type: type, predicate: predicate)
+    }
+    
+    public func findFirst<T: NSManagedObject, U: CVarArg>(type: T.Type, _ keyPath: ReferenceWritableKeyPath<T, U?>, _ value: U) -> T? {
+        let predicate = NSPredicate(format: "\(keyPath._kvcKeyPathString!) == %@", value)
+        return findFirst(type: type, predicate: predicate)
+    }
+    
     public func findFirst<T: NSManagedObject>(type: T.Type, _ format: String, _ args: CVarArg...) -> T? {
-        let predicate = NSPredicate(format: format, args)
+        let predicate = NSPredicate(format: format, arguments: getVaList(args))
         return findFirst(type: type, predicate: predicate)
     }
     
