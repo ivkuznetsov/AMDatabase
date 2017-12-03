@@ -12,13 +12,12 @@ import os.log
 
 open class AMDatabase {
     
-    fileprivate var storeCoordinator: NSPersistentStoreCoordinator?
-    fileprivate var objectModel: NSManagedObjectModel?
-    fileprivate var serialQueue: DispatchQueue = DispatchQueue(label: "database.serialqueue")
+    fileprivate var storeCoordinator: NSPersistentStoreCoordinator!
+    fileprivate var serialQueue = DispatchQueue(label: "database.serialqueue")
     fileprivate var innerViewContext: NSManagedObjectContext?
     fileprivate var innerWriterContext: NSManagedObjectContext?
     
-    public lazy var storeDescriptions: [AMStoreDescription] = [AMStoreDescription.userDataStore()]
+    public lazy var storeDescriptions = [AMStoreDescription.userDataStore()]
     public var customModelBundle: Bundle?
 
     public init() {
@@ -62,7 +61,7 @@ open class AMDatabase {
     }
     
     open func idFor(uriRepresentation: URL) -> NSManagedObjectID? {
-        return storeCoordinator?.managedObjectID(forURIRepresentation: uriRepresentation)
+        return storeCoordinator.managedObjectID(forURIRepresentation: uriRepresentation)
     }
     
     open func persistentStoreFor(configuration: String) -> NSPersistentStore? {
@@ -117,7 +116,7 @@ fileprivate extension AMDatabase {
     }
     
     private func persistentStoreAt(url: URL) -> NSPersistentStore? {
-        return storeCoordinator?.persistentStore(for: url)
+        return storeCoordinator.persistentStore(for: url)
     }
     
     private func storeDescriptionFor(configuration: String) -> AMStoreDescription {
@@ -132,10 +131,10 @@ fileprivate extension AMDatabase {
                 bundles.append(bundle)
             }
             
-            objectModel = NSManagedObjectModel.mergedModel(from: bundles)
-            storeCoordinator = NSPersistentStoreCoordinator(managedObjectModel: objectModel!)
+            let objectModel = NSManagedObjectModel.mergedModel(from: bundles)!
+            storeCoordinator = NSPersistentStoreCoordinator(managedObjectModel: objectModel)
             
-            addStoresTo(coordinator: storeCoordinator!)
+            addStoresTo(coordinator: storeCoordinator)
             
             innerWriterContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
             innerWriterContext?.persistentStoreCoordinator = storeCoordinator
