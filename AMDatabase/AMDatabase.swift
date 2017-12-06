@@ -81,8 +81,8 @@ open class AMDatabase {
                     os_log("%@", (error as NSError).userInfo)
                     return
                 }
-                if context.parent == innerWriterContext && context.parent?.hasChanges == true {
-                    context.parent?.performAndWait {
+                if context.parent == innerWriterContext && context.parent!.hasChanges == true {
+                    context.parent!.performAndWait {
                         do {
                             try context.parent?.save()
                         } catch {
