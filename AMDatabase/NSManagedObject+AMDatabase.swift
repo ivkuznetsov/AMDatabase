@@ -12,15 +12,15 @@ import os.log
 
 public extension NSManagedObject {
     
-    public func delete() {
+    @objc public func delete() {
         self.managedObjectContext?.delete(self)
     }
     
-    public func isObjectDeleted() -> Bool {
+    @objc public func isObjectDeleted() -> Bool {
         return self.managedObjectContext == nil || self.isDeleted
     }
     
-    public func permanentObjectID() -> NSManagedObjectID {
+    @objc public func permanentObjectID() -> NSManagedObjectID {
         var objectId = self.objectID
         
         if objectId.isTemporaryID {
@@ -37,4 +37,25 @@ public extension NSManagedObject {
     public class func uriWith<T: Sequence>(ids: T) -> [URL] where T.Element: NSManagedObjectID {
         return ids.map { return $0.uriRepresentation() }
     }    
+}
+
+//ObjC support
+@available(swift, obsoleted: 1.0)
+public extension NSManagedObject {
+    
+    @objc public class func ids(objects: [NSManagedObject]) -> [NSManagedObjectID] {
+        return idsWith(objects: objects)
+    }
+    
+    @objc public class func ids(objectsSet: Set<NSManagedObject>) -> [NSManagedObjectID] {
+        return idsWith(objects: objectsSet)
+    }
+    
+    @objc public class func uri(ids: [NSManagedObjectID]) -> [URL] {
+        return uriWith(ids: ids)
+    }
+    
+    @objc public class func uri(idsSet: Set<NSManagedObjectID>) -> [URL] {
+        return uriWith(ids: idsSet)
+    }
 }

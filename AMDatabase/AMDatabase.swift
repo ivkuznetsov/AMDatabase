@@ -10,44 +10,45 @@ import Foundation
 import CoreData
 import os.log
 
-open class AMDatabase {
+open class AMDatabase: NSObject {
     
     fileprivate var storeCoordinator: NSPersistentStoreCoordinator!
     fileprivate var serialQueue = DispatchQueue(label: "database.serialqueue")
     fileprivate var innerViewContext: NSManagedObjectContext?
     fileprivate var innerWriterContext: NSManagedObjectContext?
     
-    public lazy var storeDescriptions = [AMStoreDescription.userDataStore()]
+    @objc public lazy var storeDescriptions = [AMStoreDescription.userDataStore()]
     public var customModelBundle: Bundle?
 
-    public init() {
+    @objc public override init() {
+        super.init()
         NotificationCenter.default.addObserver(self, selector: #selector(contextChanged(notification:)), name: Notification.Name.NSManagedObjectContextDidSave, object: nil)
     }
     
-    open func reset() {
+    @objc open func reset() {
         setupPersistentStore()
     }
     
-    open func viewContext() -> NSManagedObjectContext {
+    @objc open func viewContext() -> NSManagedObjectContext {
         if innerViewContext == nil {
             setupPersistentStore()
         }
         return innerViewContext!
     }
     
-    open func writerContext() -> NSManagedObjectContext {
+    private func writerContext() -> NSManagedObjectContext {
         if innerWriterContext == nil {
             setupPersistentStore()
         }
         return innerWriterContext!
     }
     
-    open func perform(block: @escaping (NSManagedObjectContext) -> ()) {
+    @objc open func perform(_ closure: @escaping (NSManagedObjectContext) -> ()) {
         let context = self.createPrivateContext()
         
         let run = {
             context.performAndWait {
-                block(context)
+                closure(context)
             }
         }
         
@@ -60,15 +61,24 @@ open class AMDatabase {
         }
     }
     
-    open func idFor(uriRepresentation: URL) -> NSManagedObjectID? {
+    @objc open func idFor(uriRepresentation: URL) -> NSManagedObjectID? {
+        if storeCoordinator == nil {
+            setupPersistentStore()
+        }
         return storeCoordinator.managedObjectID(forURIRepresentation: uriRepresentation)
     }
     
-    open func persistentStoreFor(configuration: String) -> NSPersistentStore? {
+    @objc open func persistentStoreFor(configuration: String) -> NSPersistentStore? {
         return persistentStoreAt(url: storeDescriptionFor(configuration: configuration).url)
     }
     
-    open func save(context: NSManagedObjectContext) {
+    @objc open func createPrivateContext() -> NSManagedObjectContext {
+        let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        context.parent = writerContext()
+        return context
+    }
+    
+    @objc open func save(_ context: NSManagedObjectContext) {
         assert(context != innerViewContext, "View context cannot be saved")
         
         if context.hasChanges {
@@ -107,12 +117,6 @@ fileprivate extension AMDatabase {
         if let context = notification.object as? NSManagedObjectContext, context == innerWriterContext {
             innerViewContext?.mergeChanges(fromContextDidSave: notification)
         }
-    }
-    
-    fileprivate func createPrivateContext() -> NSManagedObjectContext {
-        let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        context.parent = writerContext()
-        return context
     }
     
     private func persistentStoreAt(url: URL) -> NSPersistentStore? {

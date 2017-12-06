@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-public struct AMStoreDescription {
+@objc public class AMStoreDescription: NSObject {
     
     public var url: URL
     public var storeType = NSSQLiteStoreType
@@ -18,8 +18,9 @@ public struct AMStoreDescription {
     public var deleteOnError = true
     public var options: [String:Any]?
     
-    public init(url: URL) {
+    @objc public init(url: URL) {
         self.url = url
+        super.init()
     }
     
     public static func appDataStore() -> AMStoreDescription {
@@ -29,13 +30,13 @@ public struct AMStoreDescription {
     
     public static func userDataStore() -> AMStoreDescription {
         let url = URL(fileURLWithPath: applicationSupportDirectory() + self.databaseFileName())
-        var description = AMStoreDescription(url: url)
+        let description = AMStoreDescription(url: url)
         description.deleteOnError = false
         return description
     }
     
     public static func transientStore() -> AMStoreDescription {
-        var description = AMStoreDescription(url: URL(string: "memory://")!)
+        let description = AMStoreDescription(url: URL(string: "memory://")!)
         description.storeType = NSInMemoryStoreType
         return description
     }

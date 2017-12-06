@@ -39,7 +39,7 @@ extension NSManagedObjectContext {
         return try self.fetch(request)
     }
     
-    public func allObjects<T: NSManagedObject>(type: T.Type) -> [T] {
+    public func allObjects<T: NSManagedObject>(_ type: T.Type) -> [T] {
         let request = NSFetchRequest<T>()
         
         do {
@@ -50,7 +50,7 @@ extension NSManagedObjectContext {
         return []
     }
     
-    public func allObjectsSorted<T: NSManagedObject>(type: T.Type) -> [T] {
+    public func allObjectsSorted<T: NSManagedObject>(_ type: T.Type) -> [T] {
         return allObjectsSortedBy(key: \T.objectID.description, type: type)
     }
     
@@ -148,3 +148,43 @@ extension NSManagedObjectContext {
         return nil
     }
 }
+
+//ObjC support
+@available(swift, obsoleted: 1.0)
+public extension NSManagedObjectContext {
+    
+    @objc public func create(_ type: AnyClass) -> Any {
+        return create(type: type as! NSManagedObject.Type)
+    }
+    
+    @objc public func find(objectId: NSManagedObjectID) -> Any? {
+        return try? self.existingObject(with: objectId)
+    }
+    
+    @objc public func findFirst(_ type: AnyClass, key: String, value: Any) -> Any? {
+        let predicate = NSPredicate(format: "\(key) == %@", argumentArray: [value])
+        return findFirst(type: type as! NSManagedObject.Type, predicate: predicate)
+    }
+    
+    @objc public func find(_ type: AnyClass, key: String, value: Any) -> [Any] {
+        let predicate = NSPredicate(format: "\(key) == %@", argumentArray: [value])
+        return find(type: type as! NSManagedObject.Type, predicate: predicate)
+    }
+    
+    @objc public func findFirst(_ type: AnyClass, predicate: NSPredicate) -> Any? {
+        return findFirst(type: type as! NSManagedObject.Type, predicate: predicate)
+    }
+    
+    @objc public func find(_ type: AnyClass, predicate: NSPredicate) -> [Any] {
+        return find(type: type as! NSManagedObject.Type, predicate: predicate)
+    }
+    
+    @objc public func objects(ids: [NSManagedObjectID]) -> [NSManagedObject] {
+        return objectsWith(ids: ids)
+    }
+    
+    @objc public func allObjectsFor(_ type: AnyClass) -> [Any] {
+        return allObjects(type as! NSManagedObject.Type)
+    }
+}
+
