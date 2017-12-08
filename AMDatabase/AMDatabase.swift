@@ -87,8 +87,8 @@ open class AMDatabase: NSObject {
                 do {
                     try context.save()
                 } catch {
-                    os_log("%@", error.localizedDescription)
-                    os_log("%@", (error as NSError).userInfo)
+                    log(message: error.localizedDescription)
+                    log(message: String(describing: (error as NSError).userInfo))
                     return
                 }
                 if context.parent == innerWriterContext && context.parent!.hasChanges == true {
@@ -96,13 +96,21 @@ open class AMDatabase: NSObject {
                         do {
                             try context.parent?.save()
                         } catch {
-                            os_log("%@", error.localizedDescription)
-                            os_log("%@", (error as NSError).userInfo)
+                            log(message: error.localizedDescription)
+                            log(message: String(describing: (error as NSError).userInfo))
                             return
                         }
                     }
                 }
             }
+        }
+    }
+    
+    func log(message: String) {
+        if #available(iOS 10.0, *) {
+            os_log("%@", message)
+        } else {
+            print(message)
         }
     }
     
@@ -172,10 +180,9 @@ fileprivate extension AMDatabase {
         do {
             try coordinator.addPersistentStore(ofType: description.storeType, configurationName: configuration, at: description.url, options: options)
             
-            os_log("Store has been added: %@", description.url.path)
+            log(message: "Store has been added: \(description.url.path)")
         } catch {
-            os_log("Error while creating persistent store: %@ for configuration %@", error.localizedDescription, configuration)
-            
+            log(message: "Error while creating persistent store: \(error.localizedDescription) for configuration \(configuration)")
             if description.deleteOnError {
                 description.removeStoreFiles()
                 addStoreWith(configuration: configuration, toCoordinator: coordinator)

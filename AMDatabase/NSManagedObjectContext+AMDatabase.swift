@@ -13,9 +13,11 @@ import os.log
 extension NSManagedObjectContext {
     
     private func logError(error: Error) {
-        os_log("error %@", error.localizedDescription)
-        
-        // lof detailed
+        if #available(iOS 10.0, *) {
+            os_log("%@", error.localizedDescription)
+        } else {
+            print(error.localizedDescription)
+        }
     }
     
     public func create<T: NSManagedObject>(type: T.Type) -> T {
