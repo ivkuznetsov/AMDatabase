@@ -159,8 +159,11 @@ public extension NSManagedObjectContext {
         return create(type: type as! NSManagedObject.Type)
     }
     
-    @objc public func find(objectId: NSManagedObjectID) -> Any? {
-        return try? self.existingObject(with: objectId)
+    @objc public func find(objectId: NSManagedObjectID?) -> Any? {
+        if let objectId = objectId {
+            return try? self.existingObject(with: objectId)
+        }
+        return nil
     }
     
     @objc public func findFirst(_ type: AnyClass, key: String, value: Any) -> Any? {
