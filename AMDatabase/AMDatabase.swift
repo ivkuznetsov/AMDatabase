@@ -123,7 +123,9 @@ fileprivate extension AMDatabase {
     
     @objc fileprivate func contextChanged(notification: Notification) {
         if let context = notification.object as? NSManagedObjectContext, context == innerWriterContext {
-            innerViewContext?.mergeChanges(fromContextDidSave: notification)
+            DispatchQueue.main.async {
+                self.innerViewContext?.mergeChanges(fromContextDidSave: notification)
+            }
         }
     }
     
