@@ -106,12 +106,12 @@ extension NSManagedObjectContext {
     }
     
     public func findFirst<T: NSManagedObject, U: CVarArg>(type: T.Type, _ keyPath: KeyPath<T, U>, _ value: U) -> T? {
-        let predicate = NSPredicate(format: "\(keyPath._kvcKeyPathString!) == %@", value)
+        let predicate = NSPredicate(format: "\(keyPath._kvcKeyPathString!) == \(value)")
         return findFirst(type: type, predicate: predicate)
     }
     
     public func findFirst<T: NSManagedObject, U: CVarArg>(type: T.Type, _ keyPath: ReferenceWritableKeyPath<T, U?>, _ value: U) -> T? {
-        let predicate = NSPredicate(format: "\(keyPath._kvcKeyPathString!) == %@", value)
+        let predicate = NSPredicate(format: "\(keyPath._kvcKeyPathString!) == \(value)")
         return findFirst(type: type, predicate: predicate)
     }
     
