@@ -10,7 +10,26 @@ import Foundation
 import CoreData
 import os.log
 
+//  Do any changes only by 'perform()' function, they will be performend on background queue, do not forget to save by 'ctx.saveAll()'
+//  Use 'viewContext' for getting objects to the main thread and presenting in UI
+//  You can't use 'viewContext' for changing objects, it's read only.
+//
+//  sample Implementation:
+//
+//  let database = AMDatabase()
+//
+//  database.perform { (ctx) in
+//
+//      let object = ctx.create(type: SampleObject.self)
+//
+//      ctx.saveAll()
+//  }
+//
+//  let objects = database.viewContext().allObjects(SampleObject.self)
+//
 open class AMDatabase: NSObject {
+    
+    private var notifCenter: NotificationCenter
     
     fileprivate var storeCoordinator: NSPersistentStoreCoordinator!
     fileprivate var serialQueue = DispatchQueue(label: "database.serialqueue")
@@ -20,13 +39,10 @@ open class AMDatabase: NSObject {
     @objc public lazy var storeDescriptions = [AMStoreDescription.userDataStore()]
     public var customModelBundle: Bundle?
 
-    @objc public override init() {
+    @objc public init(notifCenter: NotificationCenter = NotificationCenter.default) {
+        self.notifCenter = notifCenter
         super.init()
-        NotificationCenter.default.addObserver(self, selector: #selector(contextChanged(notification:)), name: Notification.Name.NSManagedObjectContextDidSave, object: nil)
-    }
-    
-    @objc open func reset() {
-        setupPersistentStore()
+        notifCenter.addObserver(self, selector: #selector(contextChanged(notification:)), name: Notification.Name.NSManagedObjectContextDidSave, object: nil)
     }
     
     @objc open func viewContext() -> NSManagedObjectContext {
@@ -61,6 +77,10 @@ open class AMDatabase: NSObject {
         }
     }
     
+    @objc open func reset() {
+        setupPersistentStore()
+    }
+    
     @objc open func idFor(uriRepresentation: URL) -> NSManagedObjectID? {
         if storeCoordinator == nil {
             setupPersistentStore()
@@ -78,34 +98,6 @@ open class AMDatabase: NSObject {
         return context
     }
     
-    @objc open func save(_ context: NSManagedObjectContext) {
-        assert(context != innerViewContext, "View context cannot be saved")
-        
-        if context.hasChanges {
-            context.performAndWait {
-                
-                do {
-                    try context.save()
-                } catch {
-                    log(message: error.localizedDescription)
-                    log(message: String(describing: (error as NSError).userInfo))
-                    return
-                }
-                if context.parent == innerWriterContext && context.parent!.hasChanges == true {
-                    context.parent!.performAndWait {
-                        do {
-                            try context.parent?.save()
-                        } catch {
-                            log(message: error.localizedDescription)
-                            log(message: String(describing: (error as NSError).userInfo))
-                            return
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
     func log(message: String) {
         if #available(iOS 10.0, *) {
             os_log("%@", message)
@@ -115,7 +107,7 @@ open class AMDatabase: NSObject {
     }
     
     deinit {
-        NotificationCenter.default.removeObserver(self)
+        notifCenter.removeObserver(self)
     }
 }
 

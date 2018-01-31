@@ -12,11 +12,11 @@ import os.log
 
 extension NSManagedObjectContext {
     
-    private func logError(error: Error) {
+    private func logError(_ error: String) {
         if #available(iOS 10.0, *) {
-            os_log("%@", error.localizedDescription)
+            os_log("%@", error)
         } else {
-            print(error.localizedDescription)
+            print(error)
         }
     }
     
@@ -47,7 +47,7 @@ extension NSManagedObjectContext {
         do {
             return try execute(request: request, type:type)
         } catch {
-            logError(error: error)
+            logError(error.localizedDescription)
         }
         return []
     }
@@ -71,7 +71,7 @@ extension NSManagedObjectContext {
         do {
             return try execute(request: request, type: type)
         } catch {
-            logError(error: error)
+            logError(error.localizedDescription)
         }
         return []
     }
@@ -83,9 +83,19 @@ extension NSManagedObjectContext {
         do {
             return try execute(request: request, type: type)
         } catch {
-            logError(error: error)
+            logError(error.localizedDescription)
         }
         return []
+    }
+    
+    public func find<T: NSManagedObject, U: CVarArg>(type: T.Type, _ keyPath: KeyPath<T, U>, _ value: U) -> [T] {
+        let predicate = NSPredicate(format: (value as? String == nil) ? "\(keyPath._kvcKeyPathString!) == \(value)" : "\(keyPath._kvcKeyPathString!) == \"\(value)\"")
+        return find(type: type, predicate: predicate)
+    }
+    
+    public func find<T: NSManagedObject, U: CVarArg>(type: T.Type, _ keyPath: ReferenceWritableKeyPath<T, U?>, _ value: U) -> [T] {
+        let predicate = NSPredicate(format: (value as? String == nil) ? "\(keyPath._kvcKeyPathString!) == \(value)" : "\(keyPath._kvcKeyPathString!) == \"\(value)\"")
+        return find(type: type, predicate: predicate)
     }
     
     public func find<T: NSManagedObject>(type: T.Type, _ format: String, _ args: CVarArg...) -> [T] {
@@ -100,7 +110,7 @@ extension NSManagedObjectContext {
         do {
             return try execute(request: request, type: type)
         } catch {
-            logError(error: error)
+            logError(error.localizedDescription)
         }
         return []
     }
@@ -128,7 +138,7 @@ extension NSManagedObjectContext {
         do {
             return try execute(request: request, type: type).first
         } catch {
-            logError(error: error)
+            logError(error.localizedDescription)
         }
         return nil
     }
@@ -145,9 +155,36 @@ extension NSManagedObjectContext {
         do {
             return try self.existingObject(with: objectId) as? T
         } catch {
-            logError(error: error)
+            logError(error.localizedDescription)
         }
         return nil
+    }
+    
+    @objc public func saveAll() {
+        precondition(concurrencyType != .mainQueueConcurrencyType, "View context cannot be saved")
+        
+        if hasChanges {
+            performAndWait {
+                do {
+                    try save()
+                } catch {
+                    logError(error.localizedDescription)
+                    logError(String(describing: (error as NSError).userInfo))
+                    return
+                }
+                if parent != nil && parent!.hasChanges == true {
+                    parent!.performAndWait {
+                        do {
+                            try parent!.save()
+                        } catch {
+                            logError(error.localizedDescription)
+                            logError(String(describing: (error as NSError).userInfo))
+                            return
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

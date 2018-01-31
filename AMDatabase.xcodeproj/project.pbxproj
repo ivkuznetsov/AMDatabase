@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D705D5CB2021BE30007F5FE2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D705D5CA2021BE30007F5FE2 /* AppDelegate.swift */; };
+		D705D5D22021BE30007F5FE2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D705D5D12021BE30007F5FE2 /* Assets.xcassets */; };
+		D705D5DD2021C357007F5FE2 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D705D5782021B9A1007F5FE2 /* DataModel.xcdatamodeld */; };
+		D705D5ED20221B6C007F5FE2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D705D5EC20221B6C007F5FE2 /* LaunchScreen.storyboard */; };
 		D77F20651FC3418700FCCCA3 /* AMDatabase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D77F205B1FC3418700FCCCA3 /* AMDatabase.framework */; };
 		D77F206A1FC3418700FCCCA3 /* AMDatabaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77F20691FC3418700FCCCA3 /* AMDatabaseTests.swift */; };
 		D77F206C1FC3418700FCCCA3 /* AMDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = D77F205E1FC3418700FCCCA3 /* AMDatabase.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -17,6 +21,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		D705D5DA2021BE35007F5FE2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D77F20521FC3418600FCCCA3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D705D5C72021BE30007F5FE2;
+			remoteInfo = AMDatabaseTestsHost;
+		};
 		D77F20661FC3418700FCCCA3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D77F20521FC3418600FCCCA3 /* Project object */;
@@ -27,6 +38,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D705D5792021B9A1007F5FE2 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		D705D5C82021BE30007F5FE2 /* AMDatabaseTestsHost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AMDatabaseTestsHost.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D705D5CA2021BE30007F5FE2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D705D5D12021BE30007F5FE2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D705D5D62021BE30007F5FE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D705D5EC20221B6C007F5FE2 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D77F205B1FC3418700FCCCA3 /* AMDatabase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AMDatabase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D77F205E1FC3418700FCCCA3 /* AMDatabase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AMDatabase.h; sourceTree = "<group>"; };
 		D77F205F1FC3418700FCCCA3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -40,6 +57,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		D705D5C52021BE30007F5FE2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D77F20571FC3418700FCCCA3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -58,11 +82,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D705D5C92021BE30007F5FE2 /* AMDatabaseTestsHost */ = {
+			isa = PBXGroup;
+			children = (
+				D705D5CA2021BE30007F5FE2 /* AppDelegate.swift */,
+				D705D5D12021BE30007F5FE2 /* Assets.xcassets */,
+				D705D5D62021BE30007F5FE2 /* Info.plist */,
+				D705D5EC20221B6C007F5FE2 /* LaunchScreen.storyboard */,
+			);
+			path = AMDatabaseTestsHost;
+			sourceTree = "<group>";
+		};
 		D77F20511FC3418600FCCCA3 = {
 			isa = PBXGroup;
 			children = (
 				D77F205D1FC3418700FCCCA3 /* AMDatabase */,
 				D77F20681FC3418700FCCCA3 /* AMDatabaseTests */,
+				D705D5C92021BE30007F5FE2 /* AMDatabaseTestsHost */,
 				D77F205C1FC3418700FCCCA3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -72,6 +108,7 @@
 			children = (
 				D77F205B1FC3418700FCCCA3 /* AMDatabase.framework */,
 				D77F20641FC3418700FCCCA3 /* AMDatabaseTests.xctest */,
+				D705D5C82021BE30007F5FE2 /* AMDatabaseTestsHost.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -94,6 +131,7 @@
 			children = (
 				D77F20691FC3418700FCCCA3 /* AMDatabaseTests.swift */,
 				D77F206B1FC3418700FCCCA3 /* Info.plist */,
+				D705D5782021B9A1007F5FE2 /* DataModel.xcdatamodeld */,
 			);
 			path = AMDatabaseTests;
 			sourceTree = "<group>";
@@ -112,6 +150,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		D705D5C72021BE30007F5FE2 /* AMDatabaseTestsHost */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D705D5D92021BE30007F5FE2 /* Build configuration list for PBXNativeTarget "AMDatabaseTestsHost" */;
+			buildPhases = (
+				D705D5C42021BE30007F5FE2 /* Sources */,
+				D705D5C52021BE30007F5FE2 /* Frameworks */,
+				D705D5C62021BE30007F5FE2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AMDatabaseTestsHost;
+			productName = AMDatabaseTestsHost;
+			productReference = D705D5C82021BE30007F5FE2 /* AMDatabaseTestsHost.app */;
+			productType = "com.apple.product-type.application";
+		};
 		D77F205A1FC3418700FCCCA3 /* AMDatabase */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D77F206F1FC3418700FCCCA3 /* Build configuration list for PBXNativeTarget "AMDatabase" */;
@@ -142,6 +197,7 @@
 			);
 			dependencies = (
 				D77F20671FC3418700FCCCA3 /* PBXTargetDependency */,
+				D705D5DB2021BE35007F5FE2 /* PBXTargetDependency */,
 			);
 			name = AMDatabaseTests;
 			productName = AMDatabaseTests;
@@ -154,10 +210,14 @@
 		D77F20521FC3418600FCCCA3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0910;
+				LastSwiftUpdateCheck = 0920;
 				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = "Ilya Kuznetsov";
 				TargetAttributes = {
+					D705D5C72021BE30007F5FE2 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Manual;
+					};
 					D77F205A1FC3418700FCCCA3 = {
 						CreatedOnToolsVersion = 9.1;
 						LastSwiftMigration = 0910;
@@ -165,7 +225,8 @@
 					};
 					D77F20631FC3418700FCCCA3 = {
 						CreatedOnToolsVersion = 9.1;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
+						TestTargetID = D705D5C72021BE30007F5FE2;
 					};
 				};
 			};
@@ -175,6 +236,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = D77F20511FC3418600FCCCA3;
 			productRefGroup = D77F205C1FC3418700FCCCA3 /* Products */;
@@ -183,11 +245,21 @@
 			targets = (
 				D77F205A1FC3418700FCCCA3 /* AMDatabase */,
 				D77F20631FC3418700FCCCA3 /* AMDatabaseTests */,
+				D705D5C72021BE30007F5FE2 /* AMDatabaseTestsHost */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		D705D5C62021BE30007F5FE2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D705D5ED20221B6C007F5FE2 /* LaunchScreen.storyboard in Resources */,
+				D705D5D22021BE30007F5FE2 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D77F20591FC3418700FCCCA3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -205,6 +277,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		D705D5C42021BE30007F5FE2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D705D5CB2021BE30007F5FE2 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D77F20561FC3418700FCCCA3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -221,12 +301,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				D77F206A1FC3418700FCCCA3 /* AMDatabaseTests.swift in Sources */,
+				D705D5DD2021C357007F5FE2 /* DataModel.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		D705D5DB2021BE35007F5FE2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D705D5C72021BE30007F5FE2 /* AMDatabaseTestsHost */;
+			targetProxy = D705D5DA2021BE35007F5FE2 /* PBXContainerItemProxy */;
+		};
 		D77F20671FC3418700FCCCA3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D77F205A1FC3418700FCCCA3 /* AMDatabase */;
@@ -235,6 +321,40 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		D705D5D72021BE30007F5FE2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = AMDatabaseTestsHost/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ilyakuznetsov.AMDatabaseTestsHost;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D705D5D82021BE30007F5FE2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = AMDatabaseTestsHost/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ilyakuznetsov.AMDatabaseTestsHost;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		D77F206D1FC3418700FCCCA3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -397,13 +517,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AMDatabaseTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ilyakuznetsov.AMDatabaseTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AMDatabaseTestsHost.app/AMDatabaseTestsHost";
 			};
 			name = Debug;
 		};
@@ -411,19 +534,31 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AMDatabaseTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ilyakuznetsov.AMDatabaseTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AMDatabaseTestsHost.app/AMDatabaseTestsHost";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		D705D5D92021BE30007F5FE2 /* Build configuration list for PBXNativeTarget "AMDatabaseTestsHost" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D705D5D72021BE30007F5FE2 /* Debug */,
+				D705D5D82021BE30007F5FE2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D77F20551FC3418600FCCCA3 /* Build configuration list for PBXProject "AMDatabase" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -452,6 +587,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		D705D5782021B9A1007F5FE2 /* DataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				D705D5792021B9A1007F5FE2 /* DataModel.xcdatamodel */,
+			);
+			currentVersion = D705D5792021B9A1007F5FE2 /* DataModel.xcdatamodel */;
+			path = DataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = D77F20521FC3418600FCCCA3 /* Project object */;
 }
