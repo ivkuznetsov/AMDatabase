@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		D705D5CB2021BE30007F5FE2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D705D5CA2021BE30007F5FE2 /* AppDelegate.swift */; };
-		D705D5D22021BE30007F5FE2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D705D5D12021BE30007F5FE2 /* Assets.xcassets */; };
 		D705D5DD2021C357007F5FE2 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D705D5782021B9A1007F5FE2 /* DataModel.xcdatamodeld */; };
 		D705D5ED20221B6C007F5FE2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D705D5EC20221B6C007F5FE2 /* LaunchScreen.storyboard */; };
 		D77F20651FC3418700FCCCA3 /* AMDatabase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D77F205B1FC3418700FCCCA3 /* AMDatabase.framework */; };
@@ -41,7 +40,6 @@
 		D705D5792021B9A1007F5FE2 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		D705D5C82021BE30007F5FE2 /* AMDatabaseTestsHost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AMDatabaseTestsHost.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D705D5CA2021BE30007F5FE2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D705D5D12021BE30007F5FE2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D705D5D62021BE30007F5FE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D705D5EC20221B6C007F5FE2 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D77F205B1FC3418700FCCCA3 /* AMDatabase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AMDatabase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -86,7 +84,6 @@
 			isa = PBXGroup;
 			children = (
 				D705D5CA2021BE30007F5FE2 /* AppDelegate.swift */,
-				D705D5D12021BE30007F5FE2 /* Assets.xcassets */,
 				D705D5D62021BE30007F5FE2 /* Info.plist */,
 				D705D5EC20221B6C007F5FE2 /* LaunchScreen.storyboard */,
 			);
@@ -256,7 +253,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D705D5ED20221B6C007F5FE2 /* LaunchScreen.storyboard in Resources */,
-				D705D5D22021BE30007F5FE2 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
