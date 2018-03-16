@@ -24,12 +24,12 @@ import CoreData
     }
     
     public static func appDataStore() -> AMStoreDescription {
-        let url = URL(fileURLWithPath: applicationCacheDirectory() + self.databaseFileName())
+        let url = URL(fileURLWithPath: applicationCacheDirectory() + "/" + self.databaseFileName())
         return AMStoreDescription(url: url)
     }
     
     public static func userDataStore() -> AMStoreDescription {
-        let url = URL(fileURLWithPath: applicationSupportDirectory() + self.databaseFileName())
+        let url = URL(fileURLWithPath: applicationSupportDirectory() + "/" + self.databaseFileName())
         let description = AMStoreDescription(url: url)
         description.deleteOnError = false
         return description
@@ -49,7 +49,7 @@ import CoreData
             try! FileManager.default.createDirectory(atPath: appSupportDirectory, withIntermediateDirectories: false, attributes: nil)
         }
         
-        let fullDirectory = appSupportDirectory + Bundle.main.bundleIdentifier!
+        let fullDirectory = appSupportDirectory + "/" + Bundle.main.bundleIdentifier!
         
         if !FileManager.default.fileExists(atPath: fullDirectory) {
             try! FileManager.default.createDirectory(atPath: fullDirectory, withIntermediateDirectories: false, attributes: nil)
@@ -61,7 +61,7 @@ import CoreData
         let paths = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)
         let appSupportDirectory = paths.first!
         
-        let fullDirectory = appSupportDirectory + Bundle.main.bundleIdentifier!
+        let fullDirectory = appSupportDirectory + "/" + Bundle.main.bundleIdentifier!
         
         if !FileManager.default.fileExists(atPath: fullDirectory) {
             try! FileManager.default.createDirectory(atPath: fullDirectory, withIntermediateDirectories: false, attributes: nil)
