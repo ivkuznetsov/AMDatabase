@@ -144,11 +144,11 @@ extension NSManagedObjectContext {
     }
     
     public func objectsWith<T: Sequence>(ids: T) -> [NSManagedObject] where T.Element: NSManagedObjectID {
-        return ids.flatMap { return find(type: NSManagedObject.self, objectId: $0) }
+        return ids.compactMap { return find(type: NSManagedObject.self, objectId: $0) }
     }
     
     public func objectsWith<T: Sequence, U: NSManagedObject>(ids: T, type: U.Type) -> [U] where T.Element: NSManagedObjectID {
-        return ids.flatMap { return find(type: type, objectId: $0) }
+        return ids.compactMap { return find(type: type, objectId: $0) }
     }
     
     public func find<T: NSManagedObject>(type: T.Type, objectId: NSManagedObjectID) -> T? {
