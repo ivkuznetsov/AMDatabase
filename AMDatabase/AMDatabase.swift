@@ -27,6 +27,11 @@ import os.log
 //
 //  let objects = database.viewContext().allObjects(SampleObject.self)
 //
+
+class AMWeakContext: NSObject {
+    weak var context: NSManagedObjectContext?
+}
+
 open class AMDatabase: NSObject {
     
     private var notifCenter: NotificationCenter
@@ -35,6 +40,7 @@ open class AMDatabase: NSObject {
     fileprivate var serialQueue = DispatchQueue(label: "database.serialqueue")
     fileprivate var innerViewContext: NSManagedObjectContext?
     fileprivate var innerWriterContext: NSManagedObjectContext?
+    fileprivate var privateContextsForMerge: [AMWeakContext] = []
     
     @objc public lazy var storeDescriptions = [AMStoreDescription.userDataStore()]
     public var customModelBundle: Bundle?
@@ -92,10 +98,21 @@ open class AMDatabase: NSObject {
         return persistentStoreAt(url: storeDescriptionFor(configuration: configuration).url)
     }
     
-    @objc open func createPrivateContext() -> NSManagedObjectContext {
+    @objc open func createPrivateContext(mergeChanges: Bool) -> NSManagedObjectContext {
         let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         context.parent = writerContext()
+        if mergeChanges {
+            let weakContext = AMWeakContext()
+            weakContext.context = context
+            serialQueue.async {
+                self.privateContextsForMerge.append(weakContext)
+            }
+        }
         return context
+    }
+    
+    @objc open func createPrivateContext() -> NSManagedObjectContext {
+        return createPrivateContext(mergeChanges: false)
     }
     
     func log(message: String) {
@@ -117,6 +134,17 @@ fileprivate extension AMDatabase {
         if let context = notification.object as? NSManagedObjectContext, context == innerWriterContext {
             DispatchQueue.main.async {
                 self.innerViewContext?.mergeChanges(fromContextDidSave: notification)
+            }
+            serialQueue.async {
+                self.privateContextsForMerge.forEach { (context) in
+                    if let context = context.context {
+                        context.performAndWait {
+                            context.mergeChanges(fromContextDidSave: notification)
+                        }
+                    } else {
+                        self.privateContextsForMerge.remove(at: self.privateContextsForMerge.index(of: context)!)
+                    }
+                }
             }
         }
     }
