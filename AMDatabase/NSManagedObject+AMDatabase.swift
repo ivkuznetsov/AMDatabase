@@ -12,15 +12,15 @@ import os.log
 
 public extension NSManagedObject {
     
-    @objc public func delete() {
+    @objc func delete() {
         self.managedObjectContext?.delete(self)
     }
     
-    @objc public func isObjectDeleted() -> Bool {
+    @objc func isObjectDeleted() -> Bool {
         return self.managedObjectContext == nil || self.isDeleted
     }
     
-    @objc public func permanentObjectID() -> NSManagedObjectID {
+    @objc func permanentObjectID() -> NSManagedObjectID {
         var objectId = self.objectID
         
         if objectId.isTemporaryID {
@@ -30,11 +30,11 @@ public extension NSManagedObject {
         return objectId
     }
     
-    public class func idsWith<T: Sequence>(objects: T) -> [NSManagedObjectID] where T.Element: NSManagedObject {
+    class func idsWith<T: Sequence>(objects: T) -> [NSManagedObjectID] where T.Element: NSManagedObject {
         return objects.map { return $0.permanentObjectID() }
     }
     
-    public class func uriWith<T: Sequence>(ids: T) -> [URL] where T.Element: NSManagedObjectID {
+    class func uriWith<T: Sequence>(ids: T) -> [URL] where T.Element: NSManagedObjectID {
         return ids.map { return $0.uriRepresentation() }
     }    
 }
@@ -43,19 +43,19 @@ public extension NSManagedObject {
 @available(swift, obsoleted: 1.0)
 public extension NSManagedObject {
     
-    @objc public class func ids(objects: [NSManagedObject]) -> [NSManagedObjectID] {
+    @objc class func ids(objects: [NSManagedObject]) -> [NSManagedObjectID] {
         return idsWith(objects: objects)
     }
     
-    @objc public class func ids(objectsSet: Set<NSManagedObject>) -> [NSManagedObjectID] {
+    @objc class func ids(objectsSet: Set<NSManagedObject>) -> [NSManagedObjectID] {
         return idsWith(objects: objectsSet)
     }
     
-    @objc public class func uri(ids: [NSManagedObjectID]) -> [URL] {
+    @objc class func uri(ids: [NSManagedObjectID]) -> [URL] {
         return uriWith(ids: ids)
     }
     
-    @objc public class func uri(idsSet: Set<NSManagedObjectID>) -> [URL] {
+    @objc class func uri(idsSet: Set<NSManagedObjectID>) -> [URL] {
         return uriWith(ids: idsSet)
     }
 }

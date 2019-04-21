@@ -130,7 +130,7 @@ open class AMDatabase: NSObject {
 
 fileprivate extension AMDatabase {
     
-    @objc fileprivate func contextChanged(notification: Notification) {
+    @objc func contextChanged(notification: Notification) {
         if let context = notification.object as? NSManagedObjectContext, context == innerWriterContext {
             DispatchQueue.main.async {
                 self.innerViewContext?.mergeChanges(fromContextDidSave: notification)
@@ -157,7 +157,7 @@ fileprivate extension AMDatabase {
         return storeDescriptions.filter { $0.configuration == configuration }.first!
     }
     
-    fileprivate func setupPersistentStore() {
+    func setupPersistentStore() {
         serialQueue.sync {
             var bundles = [Bundle.main]
             

@@ -77,13 +77,13 @@ import CoreData
 
 public extension AMStoreDescription {
     
-    public func copyStoreFileFrom(url: URL) throws {
+    func copyStoreFileFrom(url: URL) throws {
         if FileManager.default.fileExists(atPath: url.path) {
             try FileManager.default.copyItem(at: url, to: self.url)
         }
     }
     
-    public func removeStoreFiles() {
+    func removeStoreFiles() {
         let dataBaseDirectory = url.deletingLastPathComponent()
         
         if let filePathes = try? FileManager.default.contentsOfDirectory(atPath: dataBaseDirectory.path) {
