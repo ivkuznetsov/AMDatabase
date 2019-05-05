@@ -17,6 +17,8 @@
 		D77F20781FC3422E00FCCCA3 /* AMStoreDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77F20771FC3422E00FCCCA3 /* AMStoreDescription.swift */; };
 		D77F207A1FC3423E00FCCCA3 /* NSManagedObject+AMDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77F20791FC3423E00FCCCA3 /* NSManagedObject+AMDatabase.swift */; };
 		D7949B071FC61796000D2C4F /* NSManagedObjectContext+AMDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7949B061FC61796000D2C4F /* NSManagedObjectContext+AMDatabase.swift */; };
+		D79729F1227F58110001310F /* ObjC.h in Headers */ = {isa = PBXBuildFile; fileRef = D79729EF227F58110001310F /* ObjC.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D79729F2227F58110001310F /* ObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = D79729F0227F58110001310F /* ObjC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +54,8 @@
 		D77F20771FC3422E00FCCCA3 /* AMStoreDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AMStoreDescription.swift; sourceTree = "<group>"; };
 		D77F20791FC3423E00FCCCA3 /* NSManagedObject+AMDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+AMDatabase.swift"; sourceTree = "<group>"; };
 		D7949B061FC61796000D2C4F /* NSManagedObjectContext+AMDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+AMDatabase.swift"; sourceTree = "<group>"; };
+		D79729EF227F58110001310F /* ObjC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjC.h; sourceTree = "<group>"; };
+		D79729F0227F58110001310F /* ObjC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +123,8 @@
 				D77F20791FC3423E00FCCCA3 /* NSManagedObject+AMDatabase.swift */,
 				D7949B061FC61796000D2C4F /* NSManagedObjectContext+AMDatabase.swift */,
 				D77F205F1FC3418700FCCCA3 /* Info.plist */,
+				D79729EF227F58110001310F /* ObjC.h */,
+				D79729F0227F58110001310F /* ObjC.m */,
 			);
 			path = AMDatabase;
 			sourceTree = "<group>";
@@ -140,6 +146,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D79729F1227F58110001310F /* ObjC.h in Headers */,
 				D77F206C1FC3418700FCCCA3 /* AMDatabase.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -217,7 +224,7 @@
 					};
 					D77F205A1FC3418700FCCCA3 = {
 						CreatedOnToolsVersion = 9.1;
-						LastSwiftMigration = 0910;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
 					D77F20631FC3418700FCCCA3 = {
@@ -288,6 +295,7 @@
 				D77F20781FC3422E00FCCCA3 /* AMStoreDescription.swift in Sources */,
 				D77F20761FC3421F00FCCCA3 /* AMDatabase.swift in Sources */,
 				D7949B071FC61796000D2C4F /* NSManagedObjectContext+AMDatabase.swift in Sources */,
+				D79729F2227F58110001310F /* ObjC.m in Sources */,
 				D77F207A1FC3423E00FCCCA3 /* NSManagedObject+AMDatabase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

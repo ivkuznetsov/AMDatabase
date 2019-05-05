@@ -11,6 +11,7 @@
 //! Project version number for AMDatabase.
 FOUNDATION_EXPORT double AMDatabaseVersionNumber;
 
+#import <AMDatabase/ObjC.h>
 //! Project version string for AMDatabase.
 FOUNDATION_EXPORT const unsigned char AMDatabaseVersionString[];
 

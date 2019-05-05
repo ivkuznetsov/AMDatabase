@@ -91,7 +91,16 @@ open class AMDatabase: NSObject {
         if storeCoordinator == nil {
             setupPersistentStore()
         }
-        return storeCoordinator.managedObjectID(forURIRepresentation: uriRepresentation)
+        
+        do {
+            var objectId: NSManagedObjectID?
+            try ObjC.catchException {
+                objectId = self.storeCoordinator.managedObjectID(forURIRepresentation: uriRepresentation)
+            }
+            return objectId
+        } catch {
+            return nil
+        }
     }
     
     @objc open func persistentStoreFor(configuration: String) -> NSPersistentStore? {
