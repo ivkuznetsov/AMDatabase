@@ -151,7 +151,7 @@ fileprivate extension AMDatabase {
                             context.mergeChanges(fromContextDidSave: notification)
                         }
                     } else {
-                        self.privateContextsForMerge.remove(at: self.privateContextsForMerge.index(of: context)!)
+                        self.privateContextsForMerge.remove(at: self.privateContextsForMerge.firstIndex(of: context)!)
                     }
                 }
             }
